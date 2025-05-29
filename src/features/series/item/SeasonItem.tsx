@@ -1,10 +1,10 @@
-import { SeasonsBrief } from "../types"
+import { SeasonsBrief } from "../types";
 
 interface PropTypes {
-  season: SeasonsBrief
-  seriesId: any
+  season: SeasonsBrief;
+  seriesId: any;
 }
-export const SeasonItem = ({ season, seriesId }: PropTypes) => {
+export const SeasonItem = ({ season }: PropTypes) => {
   return (
     <div className="flex flex-col shrink-0">
       <span className="flex justify-center relative">
@@ -20,5 +20,5 @@ export const SeasonItem = ({ season, seriesId }: PropTypes) => {
         {season.name}
       </div>
     </div>
-  )
-}
+  );
+};

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeNavbar, toggleNavbar } from "./navbarSlice";
 import { SearchForm } from "../../features/search/form/SearchForm";
 import { NavItems } from "./Navitems";
-import { useEffect } from "react";
 
 export const Navbar = () => {
   const dispatch = useDispatch();
