@@ -1,16 +1,16 @@
-import { formatNumber } from "../../../utility/formatNumber"
-import { subtract } from "../../../utility/subtract"
+import { formatNumber } from "../../../utility/formatNumber";
+import { subtract } from "../../../utility/subtract";
 import {
   StarIcon,
   HandThumbUpIcon,
   CurrencyDollarIcon,
   ClockIcon,
-} from "@heroicons/react/20/solid"
+} from "@heroicons/react/20/solid";
 
-import { MovieDetail } from "../types"
-import companyLogo from "../../../assets/companyLogo.jpg"
+import { MovieDetail } from "../types";
+import companyLogo from "../../../assets/companyLogo.jpg";
 interface PropTypes {
-  movie?: MovieDetail
+  movie?: MovieDetail;
 }
 export const MovieStats = ({ movie }: PropTypes) => {
   return (
@@ -30,6 +30,7 @@ export const MovieStats = ({ movie }: PropTypes) => {
                       ? companyLogo
                       : `https://image.tmdb.org/t/p/original${company.logo_path} `
                   }`}
+                  alt={company.name}
                 />
               </span>
               <span className="text-[#f5f5f1] text-center text-xs md:text-sm">
@@ -78,5 +79,5 @@ export const MovieStats = ({ movie }: PropTypes) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};

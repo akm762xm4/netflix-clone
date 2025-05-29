@@ -1,0 +1,9 @@
+.movie-backdrop {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.movie-backdrop-overlay {
+  -webkit-backdrop-filter: brightness(50%);
+  backdrop-filter: brightness(50%);
+}

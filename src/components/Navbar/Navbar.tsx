@@ -1,16 +1,27 @@
-import { NavLink } from "react-router-dom"
-import logo from "../../assets/logo.png"
-import { Bars3Icon } from "@heroicons/react/20/solid"
-import { useDispatch, useSelector } from "react-redux"
-import { toggleNavbar } from "./navbarSlice"
-import { SearchForm } from "../../features/search/form/SearchForm"
-import { NavItems } from "./Navitems"
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import { Bars3Icon } from "@heroicons/react/20/solid";
+import { useDispatch, useSelector } from "react-redux";
+import { closeNavbar, toggleNavbar } from "./navbarSlice";
+import { SearchForm } from "../../features/search/form/SearchForm";
+import { NavItems } from "./Navitems";
+import { useEffect } from "react";
+
 export const Navbar = () => {
-  const dispatch = useDispatch()
-  const isNavbarOpen = useSelector((state: any) => state.navbar.isNavbarOpen)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isNavbarOpen = useSelector((state: any) => state.navbar.isNavbarOpen);
+  const location = useLocation();
+
   const NavStyle = ({ isActive }: any) => {
-    return { color: isActive ? "#e50914" : "" }
-  }
+    return { color: isActive ? "#e50914" : "" };
+  };
+
+  const handleNavigation = (path: string) => {
+    dispatch(closeNavbar());
+    navigate(path);
+  };
+
   return (
     <>
       <div className="flex items-center justify-between p-2 h-[4.5rem] bg-[#221f1f]  border-b border-black transition-all duration-300">
@@ -20,11 +31,12 @@ export const Navbar = () => {
             className={`${
               isNavbarOpen ? "" : "rotate-90 "
             } md:hidden block transition-transform duration-150`}
+            aria-label="Toggle navigation menu"
           >
             <Bars3Icon className="w-7 h-7  text-[#e50914]" />
           </button>
           <div className="w-[3.1rem] rounded-md p-1 shrink-0">
-            <img src={logo} />
+            <img src={logo} alt="Netflix Logo" />
           </div>
         </div>
         <span className="md:flex hidden items-center gap-3 text-lg md:text-2xl text-[#f5f5f1]">
@@ -41,20 +53,20 @@ export const Navbar = () => {
         </span>
         <SearchForm />
       </div>
-      <div className={`${isNavbarOpen ? "hidden" : "block"}`}>
+      <div className={`${isNavbarOpen ? "block" : "hidden"}`}>
         <span className="flex flex-col bg-[#292f33] md:hidden items-start py-2 px-4 text-2xl gap-2 text-[#f5f5f1]">
           {NavItems.map((elem) => (
-            <NavLink
+            <button
               key={elem.path}
-              to={elem.path}
-              className={elem.clName}
-              style={NavStyle}
+              onClick={() => handleNavigation(elem.path)}
+              className={`${elem.clName} w-full text-left`}
+              style={NavStyle({ isActive: location.pathname === elem.path })}
             >
               {elem.name}
-            </NavLink>
+            </button>
           ))}
         </span>
       </div>
     </>
-  )
-}
+  );
+};

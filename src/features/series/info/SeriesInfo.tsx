@@ -1,37 +1,37 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import {
   useSeriesImagesQuery,
   useSeriesInfoQuery,
   useSimilarSeriesQuery,
   useRecommendedSeriesQuery,
-} from "../api/seriesApi"
-import { Image } from "../../../components/Image/Image"
-import { SeriesActorsList } from "../../actors/list/SeriesActorsList"
-import { SeasonItem } from "../item/SeasonItem"
-import { SeriesItem } from "../item/SeriesItem"
-import { Loader } from "../../../components/Loader/Loader"
+} from "../api/seriesApi";
+import { Image } from "../../../components/Image/Image";
+import { SeriesActorsList } from "../../actors/list/SeriesActorsList";
+import { SeasonItem } from "../item/SeasonItem";
+import { SeriesItem } from "../item/SeriesItem";
+import { Loader } from "../../../components/Loader/Loader";
 export const SeriesInfo = () => {
-  const { id } = useParams()
+  const { id } = useParams();
   const {
     data: series,
     isLoading: isSeriesLoading,
     isFetching: isSeriesFetching,
-  } = useSeriesInfoQuery(id)
+  } = useSeriesInfoQuery(id);
   const {
     data: images,
     isLoading: isImagesLoading,
     isFetching: isImagesFetching,
-  } = useSeriesImagesQuery(id)
+  } = useSeriesImagesQuery(id);
   const {
     data: simSeries,
     isLoading: isSimSeriesLoading,
     isFetching: isSimSeriesFetching,
-  } = useSimilarSeriesQuery(id)
+  } = useSimilarSeriesQuery(id);
   const {
     data: recSeries,
     isLoading: isRecSeriesLoading,
     isFetching: isRecSeriesFetching,
-  } = useRecommendedSeriesQuery(id)
+  } = useRecommendedSeriesQuery(id);
   if (
     isSeriesLoading ||
     isSeriesFetching ||
@@ -42,7 +42,7 @@ export const SeriesInfo = () => {
     isRecSeriesLoading ||
     isRecSeriesFetching
   ) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     <span className="bg-[#292f33]">
@@ -98,7 +98,7 @@ export const SeriesInfo = () => {
           </div>
         </div>
       </span>
-      <span className={!simSeries?.length ? "hidden" : "flex"}>
+      <span className={!simSeries?.length ? "hidden" : "flex flex-col"}>
         <div className="text-xl md:text-3xl font-semibold p-2 text-gray-400">
           Similar to <span className="text-[#E50914]">{series?.name}</span>
         </div>
@@ -119,5 +119,5 @@ export const SeriesInfo = () => {
         </div>
       </span>
     </span>
-  )
-}
+  );
+};
