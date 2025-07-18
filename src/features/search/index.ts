@@ -1,6 +1,6 @@
-import { ActorBrief } from "../../actors";
-import { MovieBrief } from "../../movies";
-import { SeriesBrief } from "../../series/types";
+import { ActorBrief } from "../actors";
+import { MovieBrief } from "../movies";
+import { SeriesBrief } from "../series";
 
 export interface SearchResponse {
   movies: MovieBrief[];
