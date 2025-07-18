@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { closeNavbar, toggleNavbar } from "./navbarSlice";
-import { SearchForm } from "../../features/search/form/SearchForm";
+import { SearchForm } from "../../features/search/SearchForm";
 import { NavItems } from "./Navitems";
 
 export const Navbar = () => {
@@ -12,9 +12,9 @@ export const Navbar = () => {
   const isNavbarOpen = useSelector((state: any) => state.navbar.isNavbarOpen);
   const location = useLocation();
 
-  const NavStyle = ({ isActive }: any) => {
-    return { color: isActive ? "#e50914" : "" };
-  };
+  const NavStyle = ({ isActive }: { isActive: boolean }) => ({
+    color: isActive ? "#e50914" : "#f5f5f1",
+  });
 
   const handleNavigation = (path: string) => {
     dispatch(closeNavbar());
@@ -23,48 +23,60 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between p-2 h-[4.5rem] bg-[#221f1f]  border-b border-black transition-all duration-300">
-        <div className="flex items-center gap-3">
+      <header className="flex items-center justify-between px-4 md:px-6 py-3 h-[4.5rem] bg-[#141414] border-b border-[#333] shadow-sm sticky top-0 z-50">
+        {/* Left: Logo + Mobile Toggle */}
+        <div className="flex items-center gap-4">
           <button
             onClick={() => dispatch(toggleNavbar())}
-            className={`${
-              isNavbarOpen ? "" : "rotate-90 "
-            } md:hidden block transition-transform duration-150`}
-            aria-label="Toggle navigation menu"
+            className="md:hidden transition-transform duration-200 hover:scale-110"
+            aria-label="Toggle Menu"
           >
-            <Bars3Icon className="w-7 h-7  text-[#e50914]" />
+            <Bars3Icon className="w-7 h-7 text-[#e50914]" />
           </button>
-          <div className="w-[3.1rem] rounded-md p-1 shrink-0">
-            <img src={logo} alt="Netflix Logo" />
+
+          <div className="w-10 h-10 shrink-0">
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
-        <span className="md:flex hidden items-center gap-3 text-lg md:text-2xl text-[#f5f5f1]">
-          {NavItems.map((elem) => (
+
+        {/* Middle: Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-6 text-[1.05rem] font-medium">
+          {NavItems.map((item) => (
             <NavLink
-              key={elem.path}
-              to={elem.path}
-              className={elem.clName}
+              key={item.path}
+              to={item.path}
               style={NavStyle}
+              className="transition-all duration-200 hover:text-[#e50914] hover:underline underline-offset-4"
             >
-              {elem.name}
+              {item.name}
             </NavLink>
           ))}
-        </span>
-        <SearchForm />
-      </div>
-      <div className={`${isNavbarOpen ? "block" : "hidden"}`}>
-        <span className="flex flex-col bg-[#292f33] md:hidden items-start py-2 px-4 text-2xl gap-2 text-[#f5f5f1]">
-          {NavItems.map((elem) => (
+        </nav>
+
+        {/* Right: Search */}
+        <div className="flex items-center justify-end w-full max-w-[220px] sm:max-w-[300px] md:max-w-[400px]">
+          <SearchForm />
+        </div>
+      </header>
+
+      {/* Mobile Dropdown Menu */}
+      <div className={`${isNavbarOpen ? "block" : "hidden"} md:hidden z-30 `}>
+        <nav className="fixed bg-[#1c1c1c7b] w-full bg flex flex-col gap-3 px-6 py-4 text-lg font-medium text-[#f5f5f1] backdrop-blur-lg">
+          {NavItems.map((item) => (
             <button
-              key={elem.path}
-              onClick={() => handleNavigation(elem.path)}
-              className={`${elem.clName} w-full text-left`}
-              style={NavStyle({ isActive: location.pathname === elem.path })}
+              key={item.path}
+              onClick={() => handleNavigation(item.path)}
+              className="w-full text-left transition-colors duration-200 hover:text-[#e50914]"
+              style={NavStyle({ isActive: location.pathname === item.path })}
             >
-              {elem.name}
+              {item.name}
             </button>
           ))}
-        </span>
+        </nav>
       </div>
     </>
   );

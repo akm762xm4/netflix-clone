@@ -1,13 +1,13 @@
-import { Routes as Routing, Route, useLocation } from "react-router-dom"
-import { Protected } from "./Protected"
-import { MoviesModule } from "../pages/Movies/MoviesModule"
-import { SeriesModule } from "../pages/Series/SeriesModule"
-import { ActorsModule } from "../pages/Actors/ActorsModule"
-import { Home } from "../components/Home/Home"
-import { SearchModule } from "../pages/Search/SearchModule"
-import { PageNotFound } from "../components/Error/PageNotFound"
+import { Routes as Routing, Route, useLocation } from "react-router-dom";
+import { Protected } from "./Protected";
+import { MoviesModule } from "../pages/MoviesModule";
+import { SeriesModule } from "../pages/SeriesModule";
+import { ActorsModule } from "../pages/ActorsModule";
+import { Home } from "../components/Home";
+import { SearchModule } from "../pages/SearchModule";
+import { PageNotFound } from "../components/Error/PageNotFound";
 export const Router = () => {
-  const location = useLocation()
+  const location = useLocation();
   return (
     <Routing key={location?.pathname} location={location}>
       <Route path="/" element={<Protected />}>
@@ -19,5 +19,5 @@ export const Router = () => {
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routing>
-  )
-}
+  );
+};
